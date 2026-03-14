@@ -1,0 +1,50 @@
+<h1>Lista de tareas</h1>
+
+<form action="/tasks/crear" method="post">
+
+<input type="text" name="titulo" placeholder="Titulo">
+
+<input type="text" name="descripcion" placeholder="Descripcion">
+
+<input type="date" name="fechaLimite">
+
+<select name="estado">
+<option>PENDIENTE</option>
+<option>EN_PROGRESO</option>
+<option>TERMINADO</option>
+</select>
+
+<button type="submit">Crear</button>
+
+</form>
+
+<hr>
+<h3>Filtrar</h3>
+
+<a th:href="@{/tasks}">Todas</a>
+<a th:href="@{/tasks/estado/PENDIENTE}">Pendientes</a>
+<a th:href="@{/tasks/estado/EN_PROGRESO}">En progreso</a>
+<a th:href="@{/tasks/estado/TERMINADO}">Terminadas</a>
+
+<hr>
+<table>
+
+<tr>
+<th>Titulo</th>
+<th>Estado</th>
+<th>Fecha</th>
+<th>Acciones</th>
+</tr>
+
+<tr th:each="task : ${tasks}">
+<td th:text="${task.titulo}"></td>
+<td th:text="${task.estado}"></td>
+<td th:text="${task.fechaLimite}"></td>
+
+<td>
+<a th:href="@{/tasks/eliminar/{id}(id=${task.id})}">Eliminar</a>
+</td>
+
+</tr>
+
+</table>
