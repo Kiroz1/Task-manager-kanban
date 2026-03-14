@@ -21,14 +21,12 @@ public class TaskController {
     @GetMapping
     public String listar(Model model){
 
-        List<Task> tasks = service.listarTodas();
-        long pendientes = service.contarPendientes();
+    model.addAttribute("pendientes", service.buscarPorEstado(Estado.PENDIENTE));
+    model.addAttribute("progreso", service.buscarPorEstado(Estado.EN_PROGRESO));
+    model.addAttribute("terminadas", service.buscarPorEstado(Estado.TERMINADO));
 
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("pendientes", pendientes);
-
-        return "tasks";
-    }
+    return "tasks";
+}
 
     @PostMapping("/crear")
     public String crear(Task task){
@@ -53,4 +51,17 @@ public class TaskController {
 
         return "tasks";
     }
+    @GetMapping("/mover/{id}/{estado}")
+    public String mover(
+        @PathVariable("id") Long id,
+        @PathVariable("estado") Estado estado){
+
+    Task task = service.buscarPorId(id);
+
+    task.setEstado(estado);
+
+    service.guardar(task);
+
+    return "redirect:/tasks";
+}
 }

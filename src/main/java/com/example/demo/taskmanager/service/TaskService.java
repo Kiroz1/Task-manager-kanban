@@ -31,5 +31,10 @@ public class TaskService {
     public long contarPendientes(){
         return repository.countByEstado(Estado.PENDIENTE);
     }
+    public Task buscarPorId(Long id){
+
+    return repository.findById(id).orElse(null);
+
+}
 
 }
