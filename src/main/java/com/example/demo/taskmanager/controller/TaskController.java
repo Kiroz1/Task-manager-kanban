@@ -9,59 +9,50 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/tasks")
+@RequestMapping("/board")
 public class TaskController {
 
-    @Autowired
-    private TaskService service;
+@Autowired
+private TaskService service;
 
-    @GetMapping
-    public String listar(Model model){
+@GetMapping
+public String listar(Model model){
 
-    model.addAttribute("pendientes", service.buscarPorEstado(Estado.PENDIENTE));
-    model.addAttribute("progreso", service.buscarPorEstado(Estado.EN_PROGRESO));
-    model.addAttribute("terminadas", service.buscarPorEstado(Estado.TERMINADO));
+model.addAttribute("pendientes", service.buscarPorEstado(Estado.PENDIENTE));
+model.addAttribute("progreso", service.buscarPorEstado(Estado.EN_PROGRESO));
+model.addAttribute("terminadas", service.buscarPorEstado(Estado.TERMINADO));
 
-    return "tasks";
+return "board";
 }
 
-    @PostMapping("/crear")
-    public String crear(Task task){
-        service.guardar(task);
-        return "redirect:/tasks";
-    }
+@PostMapping("/crear")
+public String crear(Task task){
 
-   
-    @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable("id") Long id){
-    service.eliminar(id);
-    return "redirect:/tasks";
+service.guardar(task);
+
+return "redirect:/board";
 }
 
-    @GetMapping("/estado/{estado}")
-    public String filtrar(@PathVariable("estado") Estado estado, Model model){
+@PutMapping("/mover/{id}/{estado}")
+@ResponseBody
+public void mover(@PathVariable("id") Long id,
+@PathVariable("estado") Estado estado){
 
-        List<Task> tasks = service.buscarPorEstado(estado);
+Task task = service.buscarPorId(id);
 
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("pendientes", service.contarPendientes());
+task.setEstado(estado);
 
-        return "tasks";
-    }
-    @GetMapping("/mover/{id}/{estado}")
-    public String mover(
-        @PathVariable("id") Long id,
-        @PathVariable("estado") Estado estado){
+service.guardar(task);
 
-    Task task = service.buscarPorId(id);
-
-    task.setEstado(estado);
-
-    service.guardar(task);
-
-    return "redirect:/tasks";
 }
+
+@DeleteMapping("/eliminar/{id}")
+@ResponseBody
+public void eliminar(@PathVariable("id") Long id){
+
+service.eliminar(id);
+
+}
+
 }

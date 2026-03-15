@@ -1,100 +1,128 @@
 body{
 
-font-family: Arial, Helvetica, sans-serif;
-background:#1551c9;
-margin:0;
+background:linear-gradient(
+135deg,
+#5f9cff,
+#a45cff
+);
+
+min-height:100vh;
+
+font-family:Arial;
+
+}
+
+.badge{
+font-size:0.9rem;
+padding:6px 10px;
+border-radius:20px;
+}
+
+.title{
+
+color:white;
+
+font-weight:600;
+
+}
+
+.board-column{
+
+background:white;
+
 padding:20px;
 
-}
+border-radius:15px;
 
-h1{
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
 
-text-align:center;
-margin-bottom:30px;
+min-height:500px;
 
-}
-
-.form-container{
-
-text-align:center;
-margin-bottom:30px;
+transition:0.3s;
 
 }
 
-form input,
-form select{
+.board-column:hover{
 
-padding:8px;
-margin:5px;
+transform:translateY(-3px);
 
 }
 
-button{
+/* COLUMNAS */
 
-padding:8px 15px;
-cursor:pointer;
+.task-column{
 
-}
+min-height:200px;
+max-height:500px;
+overflow-y:auto;
 
-.board{
-
-display:flex;
-gap:20px;
-justify-content:center;
-
-}
-
-.column{
-
-background:#ebecf0;
-padding:15px;
-border-radius:8px;
-width:300px;
-min-height:400px;
-
-}
-
-.column h2{
-
-text-align:center;
-
-}
-
-.card{
-
-background:#164ab170;
 padding:10px;
-border-radius:6px;
-margin-bottom:10px;
-box-shadow:0 2px 4px rgba(0,0,0,0.2);
+
+border-radius:12px;
+
+transition:background 0.3s, transform 0.2s;
 
 }
 
-.card h3{
+/* cuando arrastras encima */
 
-margin:0;
+.task-column.drag-over{
 
-}
+background:#e6f2ff;
 
-.fecha{
-
-font-size:12px;
-color:gray;
+transform:scale(1.02);
 
 }
 
-.actions{
+/* TARJETAS */
 
-margin-top:10px;
-display:flex;
-justify-content:space-between;
+.task-card{
+
+margin-bottom:15px;
+
+cursor:grab;
+
+border:none;
+
+border-radius:12px;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
+
+transition:
+transform 0.25s ease,
+box-shadow 0.25s ease,
+background 0.25s ease;
 
 }
 
-.actions a{
+/* hover */
 
-text-decoration:none;
-font-size:12px;
-color:#0052cc;
+.task-card:hover{
+
+transform:scale(1.06);
+
+box-shadow:0 15px 30px rgba(0,0,0,0.35);
+
+}
+
+/* mientras arrastras */
+
+.task-card:active{
+
+cursor:grabbing;
+
+transform:
+scale(1.12)
+rotate(2deg);
+
+box-shadow:0 20px 40px rgba(0,0,0,0.45);
+
+background:#f8fbff;
+
+}
+
+.task-list{
+
+min-height:400px;
 
 }
