@@ -43,35 +43,6 @@ Permite crear, mover y eliminar tareas mediante **Drag & Drop**, organizándolas
 
 ---
 
-## 📁 Estructura del proyecto
-
-```
-src
- ├─ controller
- │   └─ TaskController.java
- │
- ├─ model
- │   ├─ Task.java
- │   └─ Estado.java
- │
- ├─ repository
- │   └─ TaskRepository.java
- │
- ├─ service
- │   └─ TaskService.java
- │
- └─ resources
-     ├─ templates
-     │   └─ board.html
-     ├─ static
-     │   ├─ css
-     │   │   └─ styles.css
-     │   └─ js
-     │       └─ board.js
-```
-
----
-
 ## 🚀 Ejecutar el proyecto
 
 ### 1️⃣ Clonar el repositorio
